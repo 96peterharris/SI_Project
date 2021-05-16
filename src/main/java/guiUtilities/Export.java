@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Export
@@ -20,7 +21,7 @@ public class Export
         this.path = "";
     }
 
-    private byte[] stringToJson(HashMap<String, String> contentMap){
+    private byte[] mapToJson(HashMap<String, ArrayList<HashMap<String, String>>> contentMap){
         ObjectMapper objectMapper = new ObjectMapper();
 
         try
@@ -35,7 +36,7 @@ public class Export
         return null;
     }
 
-    public void exportMap(Button button, HashMap<String, String> contentMap) {
+    public void exportMap(Button button, HashMap<String, ArrayList<HashMap<String, String>>> contentMap) {
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) button.getScene().getWindow();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json doc", "*.json"));
@@ -46,7 +47,7 @@ public class Export
 
             try
             {
-                Files.write(file.toPath(),  stringToJson(contentMap));
+                Files.write(file.toPath(),  mapToJson(contentMap));
             }
             catch (IOException ex)
             {

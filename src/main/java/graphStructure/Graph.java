@@ -46,6 +46,15 @@ public class Graph
        }
     }
 
+    private void addEdge(String firstLabel, String secondLabel, boolean isColor)
+    {
+        if(findVertexBool(firstLabel) && findVertexBool(secondLabel) && !findEdgeBool(firstLabel, secondLabel))
+        {
+            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane(), isColor);
+            this.edges.add(edge);
+        }
+    }
+
     public boolean findEdgeBool(String firstLabel, String secondLabel)
     {
         return this.edges.stream()
@@ -81,7 +90,19 @@ public class Graph
     {
         String label = "v" + (vertices.size() + 1);
         StackPane dot = getDot("green", label);
-        Vertex vertex = new Vertex(label, dot);
+        Vertex vertex = new Vertex("v", vertices.size() + 1, dot);
+        layoutX = (randInt(20, 780));
+        layoutY = (randInt(20, 500));
+        dot.setLayoutX(layoutX + dot.getTranslateX());
+        dot.setLayoutY(layoutY + dot.getTranslateY());
+        dot.toFront();
+        this.vertices.add(vertex);
+    }
+
+    private void addVertexRand(long id, String name, String label)
+    {
+        StackPane dot = getDot("green", label);
+        Vertex vertex = new Vertex(name, id, dot);
         layoutX = (randInt(20, 780));
         layoutY = (randInt(20, 500));
         dot.setLayoutX(layoutX + dot.getTranslateX());
@@ -165,6 +186,74 @@ public class Graph
                 }
 
                 addEdge(first.getLabel(), second.getLabel());
+            }
+        }
+    }
+
+    private ArrayList<HashMap<String, String>> verticesToArrOfMap()
+    {
+        ArrayList<HashMap<String, String>> result = new ArrayList<>();
+
+        for(Vertex v : this.vertices)
+        {
+            result.add(new HashMap<String, String>(){{
+                put("id", String.valueOf(v.getId()));
+                put("name", v.getName());
+                put("label", v.getLabel());
+            }});
+        }
+
+        return result;
+    }
+
+    private ArrayList<HashMap<String, String>> edgesToArrOfMap()
+    {
+        ArrayList<HashMap<String, String>> result = new ArrayList<>();
+
+        for(Edge e : this.edges)
+        {
+            result.add(new HashMap<String, String>(){{
+                put("firstV", e.getFirstVertex().getLabel());
+                put("secondV", e.getSecondVertex().getLabel());
+                put("isColor", String.valueOf(e.getIsColor()));
+            }});
+        }
+
+        return result;
+    }
+
+    public HashMap<String, ArrayList<HashMap<String, String>>>  graphToMap()
+    {
+       return new HashMap<String, ArrayList<HashMap<String, String>>>(){{
+           put("vertices", verticesToArrOfMap());
+           put("edges", edgesToArrOfMap());
+       }};
+    }
+
+    public void graphFromMap(HashMap<String, ArrayList<HashMap<String, String>>> graphMap)
+    {
+        if(graphMap != null)
+        {
+            this.vertices.clear();
+            this.edges.clear();
+
+            ArrayList<HashMap<String, String>> verticesArr = graphMap.get("vertices");
+            ArrayList<HashMap<String, String>> edgesArr = graphMap.get("edges");
+
+            if(verticesArr != null)
+            {
+                for(HashMap<String, String> m : verticesArr)
+                {
+                    addVertexRand(Long.valueOf(m.get("id")), m.get("name"), m.get("label"));
+                }
+            }
+
+            if(edgesArr != null)
+            {
+                for (HashMap<String, String> m : edgesArr)
+                {
+                    addEdge(m.get("firstV"), m.get("secondV"), Boolean.parseBoolean(m.get("isColor")));
+                }
             }
         }
     }

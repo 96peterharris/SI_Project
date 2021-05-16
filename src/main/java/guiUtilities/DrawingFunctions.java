@@ -352,7 +352,7 @@ public class DrawingFunctions
                     e.getColorLabel(),
                     false,
                     false,
-                    false);
+                    e.getIsColor());
         }
 
         for(Vertex v : vertices)

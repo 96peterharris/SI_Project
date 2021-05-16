@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
@@ -90,14 +91,19 @@ public class Controller implements Initializable
         if (actionEvent.getSource() == exportBtn)
         {
             Export exportJson = new Export();
-            exportJson.exportMap(exportBtn, new HashMap<>()); //ZASLEPKOWE DANE DO POPRAWY POTEM
+            exportJson.exportMap(exportBtn, graph.graphToMap());
             exportTF.setText(exportJson.getPath());
         }
         if (actionEvent.getSource() == importBtn)
         {
             Import importJson = new Import();
-            importJson.importJson(importBtn); //ZASLEPKOWE DANE DO POPRAWY POTEM
-            importTF.setText(importJson.getPath());
+            HashMap<String, ArrayList<HashMap<String, String>>> m = importJson.importJson(importBtn);
+            if(m != null)
+            {
+                graph.graphFromMap(m);
+                drawGraph(graphPane, graph.getVertices(), graph.getEdges());
+                importTF.setText(importJson.getPath());
+            }
         }
         if (actionEvent.getSource() == addVertexBtn)
         {
@@ -105,16 +111,16 @@ public class Controller implements Initializable
         }
         if (actionEvent.getSource() == addEdgeBtn)
         {
-            if(firstVTF.getText() == "" || secondVTF.getText() == "")
+            if(firstVTF.getText().equals("") || secondVTF.getText().equals(""))
             {
                 edgeWarnLabel.setVisible(false);
 
-                if(firstVTF.getText() == "")
+                if(firstVTF.getText().equals(""))
                 {
                     firstVTF.setText("Fill this field");
                 }
 
-                if(secondVTF.getText() == "")
+                if(secondVTF.getText().equals(""))
                 {
                     secondVTF.setText("Fill this field");
                 }

@@ -9,11 +9,13 @@ public class Edge
     private Vertex firstVertex;
     private Vertex secondVertex;
     private StackPane colorLabel;
+    private boolean isColor;
 
     public Edge(Vertex firstVertex, Vertex secondVertex)
     {
         this.firstVertex = firstVertex;
         this.secondVertex = secondVertex;
+        this.isColor  = false;
     }
 
     public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel)
@@ -21,6 +23,16 @@ public class Edge
         this.firstVertex = firstVertex;
         this.secondVertex = secondVertex;
         this.colorLabel = colorLabel;
+        this.isColor  = false;
+    }
+
+    public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel, boolean isColor)
+    {
+        this.firstVertex = firstVertex;
+        this.secondVertex = secondVertex;
+        this.colorLabel = colorLabel;
+        this.isColor  = isColor;
+        this.colorLabel.setVisible(isColor);
     }
 
     public Vertex getFirstVertex()
@@ -51,6 +63,22 @@ public class Edge
     public void setColorLabel(StackPane colorLabel)
     {
         this.colorLabel = colorLabel;
+    }
+
+    public boolean getIsColor()
+    {
+        return isColor;
+    }
+
+    public void setIsColor(boolean color)
+    {
+        isColor = color;
+    }
+
+    public void showColorLabel(boolean flag)
+    {
+        this.isColor = flag;
+        this.colorLabel.setVisible(flag);
     }
 
     @Override

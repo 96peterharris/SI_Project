@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Import
@@ -21,14 +22,14 @@ public class Import
         this.path = "";
     }
 
-    public HashMap<String, String> importJson(Button button) throws JsonProcessingException
+    public HashMap<String, ArrayList<HashMap<String, String>>> importJson(Button button) throws JsonProcessingException
     {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json doc", "*.json"));
         Stage stage = (Stage) button.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         String rodeContent = "";
-        HashMap<String, String> result = new HashMap<>();
+        HashMap<String, ArrayList<HashMap<String, String>>> result = new HashMap<>();
 
         if(file != null)
         {
@@ -52,11 +53,11 @@ public class Import
         return result;
     }
 
-    private HashMap<String, String> jsonToMap(String content) throws JsonProcessingException
+    private HashMap<String, ArrayList<HashMap<String, String>>> jsonToMap(String content) throws JsonProcessingException
     {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(content, new TypeReference<HashMap<String, String>>(){});
+        return objectMapper.readValue(content, new TypeReference<HashMap<String, ArrayList<HashMap<String, String>>>>(){});
     }
 
     public String getPath()
