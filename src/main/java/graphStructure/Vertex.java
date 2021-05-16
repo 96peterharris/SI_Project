@@ -11,6 +11,8 @@ public class Vertex
     private String label;
     private StackPane dot;
 
+    public Vertex(){}
+
     public Vertex(String label, StackPane dot)
     {
         this.label = label;

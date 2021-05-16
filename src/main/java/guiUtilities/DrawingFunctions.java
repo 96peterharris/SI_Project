@@ -1,5 +1,7 @@
 package guiUtilities;
 
+import graphStructure.Edge;
+import graphStructure.Vertex;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -19,12 +21,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 
 public class DrawingFunctions
 {
-    static double sceneX, sceneY, layoutX, layoutY;
+    public static double sceneX, sceneY, layoutX, layoutY;
     static HashSet<StackPane> dotList = new HashSet<>();
 
 //    @Override
@@ -82,6 +85,7 @@ public class DrawingFunctions
             colorLabel.setOpacity(0);
         }
 
+        line.toBack();
         parent.getChildren().addAll(line, colorLabel, arrowBA, arrowAB);
     }
 
@@ -325,5 +329,35 @@ public class DrawingFunctions
             dotPane.setTranslateY(0);
         });
         return dotPane;
+    }
+
+    public static void drawVertex(Pane graphPane, StackPane dot)
+    {
+        dot.toFront();
+        graphPane.getChildren().add(dot);
+    }
+
+    public static void drawGraph(Pane graphPane, LinkedHashSet<Vertex> vertices, LinkedHashSet<Edge> edges)
+    {
+        for(Vertex v : vertices)
+        {
+            drawVertex(graphPane, v.getDot());
+        }
+
+        for(Edge e : edges)
+        {
+            buildSingleDirectionalLine(e.getFirstVertex().getDot(),
+                    e.getSecondVertex().getDot(),
+                    graphPane,
+                    e.getColorLabel(),
+                    false,
+                    false,
+                    false);
+        }
+
+        for(Vertex v : vertices)
+        {
+            v.getDot().toFront();
+        }
     }
 }

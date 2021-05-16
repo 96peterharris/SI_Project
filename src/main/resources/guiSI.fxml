@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +14,7 @@
    <children>
       <Pane prefHeight="682.0" prefWidth="884.0">
          <children>
-            <Pane fx:id="graphPane" layoutX="30.0" layoutY="32.0" prefHeight="541.0" prefWidth="824.0" style="-fx-background-color: #DCDCDC; -fx-border-width: 1px; -fx-border-color: black;" />
+            <Pane fx:id="graphPane" layoutX="30.0" layoutY="32.0" prefHeight="540.0" prefWidth="825.0" style="-fx-background-color: #DCDCDC; -fx-border-width: 1px; -fx-border-color: black;" />
             <GridPane layoutX="31.0" layoutY="573.0" prefHeight="110.0" prefWidth="824.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,7 +30,7 @@
                      <children>
                         <HBox alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="619.0">
                            <children>
-                              <Button fx:id="importBtn" mnemonicParsing="false" onAction="#handleClicks" text="Import Graph" />
+                              <Button fx:id="importBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="90.0" text="Import Graph" />
                               <TextField fx:id="importTF" onAction="#handleClicks" prefHeight="25.0" prefWidth="270.0" promptText="Import path">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -42,17 +43,22 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <HBox alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="373.0">
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="414.0">
                            <children>
                               <Button fx:id="randBtn" mnemonicParsing="false" onAction="#handleClicks" text="Random Graph" />
-                              <Button fx:id="addVertexBtn" mnemonicParsing="false" onAction="#handleClicks" text="Add vertex">
+                              <Button fx:id="addVertexBtn" mnemonicParsing="false" onAction="#handleClicks" prefHeight="25.0" prefWidth="75.0" text="Add vertex">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="solveBtn" mnemonicParsing="false" onAction="#handleClicks" text="Solve">
+                              <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#handleClicks" prefHeight="25.0" prefWidth="75.0" text="Clear">
                                  <HBox.margin>
                                     <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="solveBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="75.0" text="Solve">
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -67,7 +73,7 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="addEdgeBtn" mnemonicParsing="false" onAction="#handleClicks" text="Add Edge">
+                        <Button fx:id="addEdgeBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="75.0" text="Add Edge">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -76,12 +82,21 @@
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button fx:id="exportBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleClicks" text="Export Graph" />
+                        <Button fx:id="exportBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleClicks" prefWidth="90.0" text="Export Graph" />
                         <TextField fx:id="exportTF" onAction="#handleClicks" prefHeight="25.0" prefWidth="270.0" promptText="Export path">
                            <HBox.margin>
-                              <Insets left="22.0" />
+                              <Insets left="20.0" />
                            </HBox.margin>
                         </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Label fx:id="edgeWarnLabel" text="This edge exist!" textFill="#d01616">
+                           <HBox.margin>
+                              <Insets right="90.0" />
+                           </HBox.margin>
+                        </Label>
                      </children>
                   </HBox>
                </children>

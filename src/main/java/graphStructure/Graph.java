@@ -17,7 +17,7 @@ public class Graph
         this.edges = new LinkedHashSet<>();
     }
 
-    public HashSet<Vertex> getVertices()
+    public LinkedHashSet<Vertex> getVertices()
     {
         return vertices;
     }
@@ -73,10 +73,21 @@ public class Graph
         String label = "v" + (vertices.size() + 1);
         StackPane dot = getDot("green", label);
         Vertex vertex = new Vertex(label, dot);
-        System.out.println(vertex.getId());
-        System.out.println(vertex.getLabel());
         this.vertices.add(vertex);
         return dot;
+    }
+
+    public void addVertexRand()
+    {
+        String label = "v" + (vertices.size() + 1);
+        StackPane dot = getDot("green", label);
+        Vertex vertex = new Vertex(label, dot);
+        layoutX = (randInt(20, 780));
+        layoutY = (randInt(20, 500));
+        dot.setLayoutX(layoutX + dot.getTranslateX());
+        dot.setLayoutY(layoutY + dot.getTranslateY());
+        dot.toFront();
+        this.vertices.add(vertex);
     }
 
     private Vertex findVertex(String label)
@@ -86,7 +97,6 @@ public class Graph
 
     public boolean findVertexBool(String label)
     {
-
         return this.vertices.stream().anyMatch(v -> v.getLabel().equals(label));
     }
 
@@ -108,5 +118,54 @@ public class Graph
     {
         System.out.println(this.edges.size());
         return (Edge) this.edges.toArray()[this.edges.size() - 1];
+    }
+
+    public void clearGraph()
+    {
+        this.vertices.clear();
+        this.edges.clear();
+    }
+
+    private int randInt(int min, int max)
+    {
+        return ((int) (Math.random() * (max - min))) + min;
+    }
+
+    public void randGraph()
+    {
+        int numOfVertices = randInt(2, 15);
+        int maxNumOfEdge = (numOfVertices * (numOfVertices - 1)) / 2;
+        int numOfEdges = randInt(numOfVertices - 1, maxNumOfEdge);
+
+        for(int i = 0; i < numOfVertices; i++)
+        {
+            addVertexRand();
+        }
+
+        for (int i = 0; i < numOfEdges; i++)
+        {
+            Vertex first = (Vertex) this.vertices.toArray()[randInt(0, this.vertices.size())];
+            Vertex second = (Vertex) this.vertices.toArray()[randInt(0, this.vertices.size())];
+
+            if (!findEdgeBool(first.getLabel(), second.getLabel()))
+            {
+                addEdge(first.getLabel(), second.getLabel());
+            }
+            else
+            {
+                while(true)
+                {
+                    first = (Vertex) this.vertices.toArray()[randInt(0, this.vertices.size())];
+                    second = (Vertex) this.vertices.toArray()[randInt(0, this.vertices.size())];
+
+                    if(!findEdgeBool(first.getLabel(), second.getLabel()))
+                    {
+                        break;
+                    }
+                }
+
+                addEdge(first.getLabel(), second.getLabel());
+            }
+        }
     }
 }
