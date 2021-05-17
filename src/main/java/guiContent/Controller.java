@@ -97,6 +97,8 @@ public class Controller implements Initializable
         if (actionEvent.getSource() == importBtn)
         {
             Import importJson = new Import();
+            graph.clearGraph();
+            graphPane.getChildren().clear();
             HashMap<String, ArrayList<HashMap<String, String>>> m = importJson.importJson(importBtn);
             if(m != null)
             {

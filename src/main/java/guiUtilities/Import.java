@@ -28,7 +28,7 @@ public class Import
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json doc", "*.json"));
         Stage stage = (Stage) button.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
-        String rodeContent = "";
+        String loadedContent = "";
         HashMap<String, ArrayList<HashMap<String, String>>> result = new HashMap<>();
 
         if(file != null)
@@ -40,14 +40,14 @@ public class Import
 
                 while ((line = reader.readLine()) != null)
                 {
-                    rodeContent += line;
+                    loadedContent += line;
                 }
             }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
-            result = this.jsonToMap(rodeContent);
+            result = this.jsonToMap(loadedContent);
         }
 
         return result;

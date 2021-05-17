@@ -52,6 +52,7 @@ public class Graph
         {
             Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane(), isColor);
             this.edges.add(edge);
+
         }
     }
 
@@ -79,9 +80,11 @@ public class Graph
 
     public StackPane addVertex()
     {
-        String label = "v" + (vertices.size() + 1);
+        String name = "v";
+        long id = vertices.size() + 1;
+        String label = name + id;
         StackPane dot = getDot("green", label);
-        Vertex vertex = new Vertex(label, dot);
+        Vertex vertex = new Vertex(name, id, dot);
         this.vertices.add(vertex);
         return dot;
     }
@@ -137,7 +140,6 @@ public class Graph
 
     public Edge getLastEdge()
     {
-        System.out.println(this.edges.size());
         return (Edge) this.edges.toArray()[this.edges.size() - 1];
     }
 
@@ -255,6 +257,7 @@ public class Graph
                     addEdge(m.get("firstV"), m.get("secondV"), Boolean.parseBoolean(m.get("isColor")));
                 }
             }
+
         }
     }
 }

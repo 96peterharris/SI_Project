@@ -13,26 +13,12 @@ public class Vertex
 
     public Vertex(){}
 
-    public Vertex(String label, StackPane dot)
-    {
-        this.label = label;
-        this.dot = dot;
-        this.name = "";
-    }
-
-    public Vertex(String name, long id)
-    {
-        this.name = name;
-        this.id = id;
-        this.label = this.id + this.name;
-    }
-
     public Vertex(String name, long id, StackPane dot)
     {
         this.name = name;
         this.id = id;
         this.dot = dot;
-        this.label = this.id + this.name;
+        this.label = this.name + this.id;
     }
 
     public String getName()
