@@ -2,16 +2,13 @@ package guiUtilities;
 
 import graphStructure.Edge;
 import graphStructure.Vertex;
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -20,43 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
-
 
 public class DrawingFunctions
 {
     public static double sceneX, sceneY, layoutX, layoutY;
-    static HashSet<StackPane> dotList = new HashSet<>();
-
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//        StackPane root = new StackPane();
-//        root.setPadding(new Insets(20));
-//
-//        Pane pane = new Pane();
-//        root.getChildren().add(pane);
-//        Scene sc = new Scene(root, 600, 600);
-//        stage.setScene(sc);
-//        stage.show();
-//
-//        StackPane dotA = getDot("green", "A");
-//        StackPane dotB = getDot("red", "B");
-//        StackPane dotC = getDot("yellow", "C");
-//        StackPane dotD = getDot("pink", "D");
-//        StackPane dotE = getDot("silver", "E");
-//
-//        buildSingleDirectionalLine(dotA, dotB, pane, false, false); // A <--> B
-//        buildSingleDirectionalLine(dotB, dotC, pane, false, false); // B <--> C
-//        buildSingleDirectionalLine(dotC, dotD, pane, false, false); // C --> D
-//
-//        // D <===> E
-//        buildBiDirectionalLine(true, dotD, dotE, pane);
-//        buildBiDirectionalLine(false, dotD, dotE, pane);
-//
-//        pane.getChildren().addAll(dotA, dotB, dotC, dotD, dotE);
-//    }
 
     /**
      * Builds the single directional line with pointing arrows at each end.

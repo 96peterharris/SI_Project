@@ -1,9 +1,7 @@
 package graphStructure;
 
 import javafx.scene.layout.StackPane;
-
 import java.util.*;
-
 import static guiUtilities.DrawingFunctions.*;
 
 public class Graph

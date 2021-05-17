@@ -9,8 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class Controller implements Initializable
     @FXML
     private Label edgeWarnLabel;
 
-    Graph graph = new Graph();
+    private Graph graph = new Graph();
 
     public Controller(){ }
 
@@ -69,21 +67,6 @@ public class Controller implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         edgeWarnLabel.setVisible(false);
-//        StackPane dotA = getDot("green", "A");
-//        StackPane dotB = getDot("red", "B");
-//        StackPane dotC = getDot("yellow", "C");
-//        StackPane dotD = getDot("pink", "D");
-//        StackPane dotE = getDot("silver", "E");
-//
-//        buildSingleDirectionalLine(dotA, dotB, graphPane, false, false, false); // A <--> B
-//        buildSingleDirectionalLine(dotB, dotC, graphPane, false, false, false); // B <--> C
-//        buildSingleDirectionalLine(dotC, dotD, graphPane, false, false, false); // C --> D
-//
-//        // D <===> E
-//        buildBiDirectionalLine(true, dotD, dotE, graphPane);
-//        buildBiDirectionalLine(false, dotD, dotE, graphPane);
-//
-//        graphPane.getChildren().addAll(dotA, dotB, dotC, dotD, dotE);
     }
 
     public void handleClicks(ActionEvent actionEvent) throws IOException
@@ -96,14 +79,17 @@ public class Controller implements Initializable
         }
         if (actionEvent.getSource() == importBtn)
         {
+            clearGraph();
+
             Import importJson = new Import();
-            graph.clearGraph();
-            graphPane.getChildren().clear();
             HashMap<String, ArrayList<HashMap<String, String>>> m = importJson.importJson(importBtn);
+
             if(m != null)
             {
                 graph.graphFromMap(m);
+
                 drawGraph(graphPane, graph.getVertices(), graph.getEdges());
+
                 importTF.setText(importJson.getPath());
             }
         }
@@ -161,15 +147,21 @@ public class Controller implements Initializable
         }
         if (actionEvent.getSource() == clearBtn)
         {
-            graph.clearGraph();
-            graphPane.getChildren().clear();
+            clearGraph();
         }
         if (actionEvent.getSource() == randBtn)
         {
-            graph.clearGraph();
-            graphPane.getChildren().clear();
+            clearGraph();
+
             graph.randGraph();
+
             drawGraph(graphPane, graph.getVertices(), graph.getEdges());
         }
+    }
+
+    public void clearGraph()
+    {
+        graph.clearGraph();
+        graphPane.getChildren().clear();
     }
 }
