@@ -1,8 +1,6 @@
 package graphSolver;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 import graphStructure.Edge;
 import graphStructure.Graph;
@@ -70,38 +68,38 @@ public class SolverExample {
 
 //        model.allDifferent(edge_var_array).post();
 
+        for(Vertex v : g.getVertices())
+        {
+            List<IntVar> l = new ArrayList<>();
+
+            for(Edge e : g.getConnectedEdges(v.getLabel()))
+            {
+                l.add(e.getSolverVar());
+            }
+
+            IntVar[] a = new IntVar[l.size()];
+            model.allDifferent(l.toArray(a)).post();
+        }
+
+
         for(Edge e : g.getEdges())
         {
-            //model.arithm(e.getFirstVertex().getSolverVar(), ">", e.getSecondVertex().getSolverVar()).post();
-            //model.arithm(e.getFirstVertex().getSolverVar(), "-", e.getSecondVertex().getSolverVar(), ">", 0).post();
-//            model.arithm(e.getFirstVertex().getSolverVar(), "-", e.getSecondVertex().getSolverVar(), "=", e.getSolverVar()).post();
-//            e.getFirstVertex().getSolverVar().dist(e.getSecondVertex().getSolverVar());
             model.arithm(e.getFirstVertex().getSolverVar().dist(e.getSecondVertex().getSolverVar()).intVar(), "=", e.getSolverVar()).post();
         }
 
         model.getSolver().solve();
 
-
-//        // Get IntVar[] of vertices
-//        IntVar[] vertex_var_array = new IntVar[g.getVertices().size()];
-//        for (int i = 0; i < vertex_var_array.length; i++) {
-//            vertex_var_array[i] = g.getVertices().get(i).getSolverVar();
-//        }
-//
-//        model.allDifferent(vertex_var_array).post(); // Makes vertex sum unique
-//
-//        model.getSolver().solve(); // Repeating this operation gives next solutions (if they exist)
-
         // Print solution
-        for (Vertex v : g.getVertices()) {
+        for (Vertex v : g.getVertices())
+        {
             System.out.println("Vertex: " + v.getSolverVar());
         }
 
         System.out.print("\n");
 
-        for (Edge e : g.getEdges()) {
+        for (Edge e : g.getEdges())
+        {
             System.out.println("Edge: " + e.getSolverVar());
         }
-
     }
 }

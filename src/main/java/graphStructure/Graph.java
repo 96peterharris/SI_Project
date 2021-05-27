@@ -267,4 +267,12 @@ public class Graph
 
         }
     }
+
+    public List<Edge> getConnectedEdges(String vertexLabel)
+    {
+        List<Edge> listOfEdges = new ArrayList<>();
+        this.edges.forEach(edge -> {if(edge.getFirstVertex().getLabel().equals(vertexLabel)
+        || edge.getSecondVertex().getLabel().equals(vertexLabel)){listOfEdges.add(edge);}});
+        return  listOfEdges;
+    }
 }
