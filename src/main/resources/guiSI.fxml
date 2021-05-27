@@ -48,17 +48,22 @@
                               <Button fx:id="randBtn" mnemonicParsing="false" onAction="#handleClicks" text="Random Graph" />
                               <Button fx:id="addVertexBtn" mnemonicParsing="false" onAction="#handleClicks" prefHeight="25.0" prefWidth="75.0" text="Add vertex">
                                  <HBox.margin>
-                                    <Insets left="20.0" />
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#handleClicks" prefHeight="25.0" prefWidth="75.0" text="Clear">
+                              <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#handleClicks" prefHeight="25.0" prefWidth="70.0" text="Clear">
                                  <HBox.margin>
-                                    <Insets left="20.0" />
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="solveBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="75.0" text="Solve">
+                              <Button fx:id="solveSBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="75.0" text="Solve S">
                                  <HBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="solveHBtn" mnemonicParsing="false" onAction="#handleClicks" prefWidth="75.0" text="Solve H">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -80,7 +85,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="398.0" GridPane.rowIndex="1">
                      <children>
                         <Button fx:id="exportBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleClicks" prefWidth="90.0" text="Export Graph" />
                         <TextField fx:id="exportTF" onAction="#handleClicks" prefHeight="25.0" prefWidth="270.0" promptText="Export path">

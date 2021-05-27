@@ -2,6 +2,7 @@ package graphStructure;
 
 import javafx.scene.layout.StackPane;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import static guiUtilities.DrawingFunctions.*;
 
 public class Graph
@@ -39,35 +40,40 @@ public class Graph
     {
        if(findVertexBool(firstLabel) && findVertexBool(secondLabel) && !findEdgeBool(firstLabel, secondLabel))
        {
-           Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane());
+           Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane(), edges.size());
            this.edges.add(edge);
        }
     }
 
-    private void addEdge(String firstLabel, String secondLabel, boolean isColor)
+    private void addEdge(String firstLabel, String secondLabel, long color)
     {
         if(findVertexBool(firstLabel) && findVertexBool(secondLabel) && !findEdgeBool(firstLabel, secondLabel))
         {
-            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane(), isColor);
+            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), new StackPane(), color, edges.size());
             this.edges.add(edge);
-
         }
     }
 
-    public void addEdge(String firstLabel, String secondLabel, long id)
+    public void addEdgeExample(String firstLabel, String secondLabel, long id)
     {
         if(findVertexBool(firstLabel) && findVertexBool(secondLabel) && !findEdgeBool(firstLabel, secondLabel))
         {
-            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), id, new StackPane(), false);
+            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), id, new StackPane(), 0);
             this.edges.add(edge);
         }
     }
 
     public boolean findEdgeBool(String firstLabel, String secondLabel)
     {
-        return this.edges.stream()
-                .anyMatch(e -> (e.getFirstVertex().getLabel().equals(firstLabel) && e.getSecondVertex().getLabel().equals(secondLabel))
-                || (e.getFirstVertex().getLabel().equals(secondLabel) && e.getSecondVertex().getLabel().equals(firstLabel)));
+        if(firstLabel.equals(secondLabel))
+        {
+            return true;
+        }
+        {
+            return this.edges.stream()
+                    .anyMatch(e -> ((e.getFirstVertex().getLabel().equals(firstLabel) && e.getSecondVertex().getLabel().equals(secondLabel))
+                            || (e.getFirstVertex().getLabel().equals(secondLabel) && e.getSecondVertex().getLabel().equals(firstLabel))));
+        }
     }
 
     public void deleteEdge(String firstLabel, String secondLabel)
@@ -158,12 +164,21 @@ public class Graph
 
     private int randInt(int min, int max)
     {
-        return ((int) (Math.random() * (max - min))) + min;
+//        return ((int) (Math.random() * (max - min))) + min;
+        if(min >= max)
+        {
+            return ThreadLocalRandom.current().nextInt(min);
+
+        }
+        else
+        {
+            return ThreadLocalRandom.current().nextInt(min, max);
+        }
     }
 
     public void randGraph()
     {
-        int numOfVertices = randInt(2, 15);
+        int numOfVertices = randInt(2, 8);
         int maxNumOfEdge = (numOfVertices * (numOfVertices - 1)) / 2;
         int numOfEdges = randInt(numOfVertices - 1, maxNumOfEdge);
 
@@ -224,7 +239,7 @@ public class Graph
             result.add(new HashMap<String, String>(){{
                 put("firstV", e.getFirstVertex().getLabel());
                 put("secondV", e.getSecondVertex().getLabel());
-                put("isColor", String.valueOf(e.getIsColor()));
+                put("color", String.valueOf(e.getColorFromVar()));
             }});
         }
 
@@ -261,7 +276,7 @@ public class Graph
             {
                 for (HashMap<String, String> m : edgesArr)
                 {
-                    addEdge(m.get("firstV"), m.get("secondV"), Boolean.parseBoolean(m.get("isColor")));
+                    addEdge(m.get("firstV"), m.get("secondV"), Long.valueOf(m.get("color")));
                 }
             }
 

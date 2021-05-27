@@ -1,47 +1,41 @@
 package graphSolver;
 
-import java.util.*;
-
 import graphStructure.Edge;
 import graphStructure.Graph;
 import graphStructure.Vertex;
-import javafx.scene.layout.StackPane;
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.ParallelPortfolio;
 import org.chocosolver.solver.variables.IntVar;
 
-public class SolverExample {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static void main(String[] args) {
-        // The model is the main component of Choco Solver
-        Model model = new Model("Graph Antymagic Labeling with Choco Solver");
+public class Solver
+{
+    private Graph graph;
 
-        // Creating new graph
-        Graph g = new Graph();
+    public Solver(){}
 
-        LinkedHashSet<Vertex> vertices_list = new LinkedHashSet<>();
+    public Graph getGraph()
+    {
+        return graph;
+    }
 
-        for (int i = 0; i < 4; i++)
-        {
-            vertices_list.add(new Vertex("v", i, new StackPane()));
-        }
+    public void setGraph(Graph graph)
+    {
+        this.graph = graph;
+    }
 
-        g.setVertices(vertices_list);
+    public void solve(Graph g, boolean typOfSolve)
+    {
+        Model model = new Model("Labeling graph with sigma labeling method.");
 
-        g.addEdgeExample("v0", "v1", 0);
-        g.addEdgeExample("v1", "v2", 1);
-        g.addEdgeExample("v2", "v3", 2);
-        g.addEdgeExample("v3", "v0", 3);
-        g.addEdgeExample("v0", "v2", 4);
-        g.addEdgeExample("v3", "v1", 5);
-
-        //Solving
-        // Get all edges which are connected with selected vertex and parse them into IntVar[]
-        for (Vertex v : g.getVertices())
+        for(Vertex v : g.getVertices())
         {
             v.setSolverVar(model.intVar(v.getLabel(), 0, g.getEdges().size() * 2));
         }
 
-       // g.getEdges().forEach(edge -> {edge.setSolverVar(model.intVar(String.valueOf(edge.getId()), 1, g.getEdges().size()));});
+        // g.getEdges().forEach(edge -> {edge.setSolverVar(model.intVar(String.valueOf(edge.getId()), 1, g.getEdges().size()));});
 
         for(Edge e : g.getEdges())
         {
@@ -66,6 +60,12 @@ public class SolverExample {
             edge_var_array[i++] = e.getSolverVar();
         }
 
+        /** True - hard solving, False - sof solving*/
+        if(typOfSolve)
+        {
+            model.allDifferent(edge_var_array).post();
+        }
+
 //        model.allDifferent(edge_var_array).post();
 
         for(Vertex v : g.getVertices())
@@ -80,7 +80,6 @@ public class SolverExample {
             IntVar[] a = new IntVar[l.size()];
             model.allDifferent(l.toArray(a)).post();
         }
-
 
         for(Edge e : g.getEdges())
         {

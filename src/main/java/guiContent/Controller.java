@@ -1,5 +1,6 @@
 package guiContent;
 
+import graphSolver.Solver;
 import graphStructure.Graph;
 import guiUtilities.Export;
 import guiUtilities.Import;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import static guiUtilities.DrawingFunctions.*;
@@ -36,7 +38,10 @@ public class Controller implements Initializable
     private Button addVertexBtn;
 
     @FXML
-    private Button solveBtn;
+    private Button solveSBtn;
+
+    @FXML
+    private Button solveHBtn;
 
     @FXML
     private  Button  addEdgeBtn;
@@ -140,7 +145,7 @@ public class Controller implements Initializable
                         this.graph.getLastEdge().getColorLabel(),
                         false,
                         false,
-                        false);
+                        0);
                 this.graph.getLastEdge().getFirstVertex().getDot().toFront();
                 this.graph.getLastEdge().getSecondVertex().getDot().toFront();
             }
@@ -155,6 +160,20 @@ public class Controller implements Initializable
 
             graph.randGraph();
 
+            drawGraph(graphPane, graph.getVertices(), graph.getEdges());
+        }
+        if (actionEvent.getSource() == solveSBtn)
+        {
+            graphPane.getChildren().clear();
+            Solver solver = new Solver();
+            solver.solve(graph, true);
+            drawGraph(graphPane, graph.getVertices(), graph.getEdges());
+        }
+        if (actionEvent.getSource() == solveHBtn)
+        {
+            graphPane.getChildren().clear();
+            Solver solver = new Solver();
+            solver.solve(graph, false);
             drawGraph(graphPane, graph.getVertices(), graph.getEdges());
         }
     }

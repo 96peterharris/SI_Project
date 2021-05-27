@@ -31,7 +31,7 @@ public class DrawingFunctions
      * @param hasEndArrow Specifies whether to show arrow towards end
      * @param hasStartArrow Specifies whether to show arrow towards start
      */
-    public static void buildSingleDirectionalLine(StackPane startDot, StackPane endDot, Pane parent, StackPane colorLabel, boolean hasEndArrow, boolean hasStartArrow, boolean hasColor) {
+    public static void buildSingleDirectionalLine(StackPane startDot, StackPane endDot, Pane parent, StackPane colorLabel, boolean hasEndArrow, boolean hasStartArrow, long color) {
         Line line = getLine(startDot, endDot);
         StackPane arrowAB = getArrow(true, line, startDot, endDot);
         if (!hasEndArrow) {
@@ -43,9 +43,9 @@ public class DrawingFunctions
         }
 
         colorLabel = getWeight(line);
-        //colorLabel.getChildren().add(new Label("10"));
+        colorLabel.getChildren().add(new Label(String.valueOf(color)));
 
-        if (!hasColor)
+        if (color == 0)
         {
             colorLabel.setOpacity(0);
         }
@@ -317,7 +317,7 @@ public class DrawingFunctions
                     e.getColorLabel(),
                     false,
                     false,
-                    e.getIsColor());
+                    e.getColorFromVar());
         }
 
         for(Vertex v : vertices)

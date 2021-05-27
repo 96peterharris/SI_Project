@@ -12,7 +12,7 @@ public class Edge
     private StackPane colorLabel;
 
     private long id;
-    private boolean isColor;
+    private long color;
 
     private IntVar solverVar;
 
@@ -20,34 +20,50 @@ public class Edge
     {
         this.firstVertex = firstVertex;
         this.secondVertex = secondVertex;
-        this.isColor  = false;
+        this.color = 0;
     }
 
-    public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel)
+    public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel, long id)
     {
         this.firstVertex = firstVertex;
         this.secondVertex = secondVertex;
         this.colorLabel = colorLabel;
-        this.isColor  = false;
-    }
-
-    public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel, boolean isColor)
-    {
-        this.firstVertex = firstVertex;
-        this.secondVertex = secondVertex;
-        this.colorLabel = colorLabel;
-        this.isColor  = isColor;
-        this.colorLabel.setVisible(isColor);
-    }
-
-    public Edge(Vertex firstVertex, Vertex secondVertex, long id, StackPane colorLabel, boolean isColor)
-    {
-        this.firstVertex = firstVertex;
-        this.secondVertex = secondVertex;
-        this.colorLabel = colorLabel;
-        this.isColor  = isColor;
-        this.colorLabel.setVisible(isColor);
+        this.color = 0;
         this.id = id;
+    }
+
+    public Edge(Vertex firstVertex, Vertex secondVertex, StackPane colorLabel, long color, long id)
+    {
+        this.firstVertex = firstVertex;
+        this.secondVertex = secondVertex;
+        this.colorLabel = colorLabel;
+        this.color = color;
+        if(this.color != 0)
+        {
+            this.colorLabel.setVisible(false);
+        }
+        else
+        {
+            this.colorLabel.setVisible(true);
+        }
+        this.id = id;
+    }
+
+    public Edge(Vertex firstVertex, Vertex secondVertex, long id, StackPane colorLabel, long color)
+    {
+        this.firstVertex = firstVertex;
+        this.secondVertex = secondVertex;
+        this.id = id;
+        this.colorLabel = colorLabel;
+        this.color  = color;
+        if(color != 0)
+        {
+            this.colorLabel.setVisible(false);
+        }
+        else
+        {
+            this.colorLabel.setVisible(true);
+        }
     }
 
     public long getId()
@@ -60,15 +76,6 @@ public class Edge
         this.id = id;
     }
 
-    public boolean isColor()
-    {
-        return isColor;
-    }
-
-    public void setColor(boolean color)
-    {
-        isColor = color;
-    }
     public IntVar getSolverVar()
     {
         return solverVar;
@@ -109,20 +116,26 @@ public class Edge
         this.colorLabel = colorLabel;
     }
 
-    public boolean getIsColor()
+    public long getColor()
     {
-        return isColor;
+        return color;
     }
 
-    public void setIsColor(boolean color)
+    public void setColor(long color)
     {
-        isColor = color;
+        this.color = color;
     }
 
-    public void showColorLabel(boolean flag)
+    public long getColorFromVar()
     {
-        this.isColor = flag;
-        this.colorLabel.setVisible(flag);
+        if(solverVar != null)
+        {
+            return solverVar.getValue();
+        }
+        else
+        {
+            return color;
+        }
     }
 
     @Override
@@ -145,8 +158,10 @@ public class Edge
     public String toString()
     {
         return "Edge{" +
-                "firstVertex=" + firstVertex +
-                ", secondVertex=" + secondVertex +
+                "firstVertex=" + firstVertex.getLabel() +
+                ", secondVertex=" + secondVertex.getLabel() +
+                ", id=" + id +
+                ", color=" + color +
                 '}';
     }
 }
