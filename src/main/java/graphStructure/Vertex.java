@@ -1,6 +1,8 @@
 package graphStructure;
 
 import javafx.scene.layout.StackPane;
+import org.chocosolver.solver.variables.IntVar;
+
 import java.util.Objects;
 
 public class Vertex
@@ -10,6 +12,8 @@ public class Vertex
     private String label;
     private StackPane dot;
 
+    private IntVar solverVar;
+
     public Vertex(){}
 
     public Vertex(String name, long id, StackPane dot)
@@ -18,6 +22,15 @@ public class Vertex
         this.id = id;
         this.dot = dot;
         this.label = this.name + this.id;
+    }
+    public IntVar getSolverVar()
+    {
+        return solverVar;
+    }
+
+    public void setSolverVar(IntVar solverVar)
+    {
+        this.solverVar = solverVar;
     }
 
     public String getName()

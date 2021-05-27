@@ -7,6 +7,21 @@
     <groupId>groupId</groupId>
     <artifactId>SI_Project</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.choco-solver</groupId>
+            <artifactId>choco-solver</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.choco-solver</groupId>
+            <artifactId>choco-graph</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+    </dependencies>
+
+
     <build>
         <plugins>
             <plugin>

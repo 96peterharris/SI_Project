@@ -54,6 +54,15 @@ public class Graph
         }
     }
 
+    public void addEdge(String firstLabel, String secondLabel, long id)
+    {
+        if(findVertexBool(firstLabel) && findVertexBool(secondLabel) && !findEdgeBool(firstLabel, secondLabel))
+        {
+            Edge edge = new Edge(findVertex(firstLabel), findVertex(secondLabel), id, new StackPane(), false);
+            this.edges.add(edge);
+        }
+    }
+
     public boolean findEdgeBool(String firstLabel, String secondLabel)
     {
         return this.edges.stream()

@@ -1,6 +1,8 @@
 package graphStructure;
 
 import javafx.scene.layout.StackPane;
+import org.chocosolver.solver.variables.IntVar;
+
 import java.util.Objects;
 
 public class Edge
@@ -8,7 +10,11 @@ public class Edge
     private Vertex firstVertex;
     private Vertex secondVertex;
     private StackPane colorLabel;
+
+    private long id;
     private boolean isColor;
+
+    private IntVar solverVar;
 
     public Edge(Vertex firstVertex, Vertex secondVertex)
     {
@@ -32,6 +38,45 @@ public class Edge
         this.colorLabel = colorLabel;
         this.isColor  = isColor;
         this.colorLabel.setVisible(isColor);
+    }
+
+    public Edge(Vertex firstVertex, Vertex secondVertex, long id, StackPane colorLabel, boolean isColor)
+    {
+        this.firstVertex = firstVertex;
+        this.secondVertex = secondVertex;
+        this.colorLabel = colorLabel;
+        this.isColor  = isColor;
+        this.colorLabel.setVisible(isColor);
+        this.id = id;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+
+    public boolean isColor()
+    {
+        return isColor;
+    }
+
+    public void setColor(boolean color)
+    {
+        isColor = color;
+    }
+    public IntVar getSolverVar()
+    {
+        return solverVar;
+    }
+
+    public void setSolverVar(IntVar solverVar)
+    {
+        this.solverVar = solverVar;
     }
 
     public Vertex getFirstVertex()
