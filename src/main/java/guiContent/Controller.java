@@ -166,14 +166,14 @@ public class Controller implements Initializable
         {
             graphPane.getChildren().clear();
             Solver solver = new Solver();
-            solver.solve(graph, true);
+            solver.solve(graph, false);
             drawGraph(graphPane, graph.getVertices(), graph.getEdges());
         }
         if (actionEvent.getSource() == solveHBtn)
         {
             graphPane.getChildren().clear();
             Solver solver = new Solver();
-            solver.solve(graph, false);
+            solver.solve(graph, true);
             drawGraph(graphPane, graph.getVertices(), graph.getEdges());
         }
     }
