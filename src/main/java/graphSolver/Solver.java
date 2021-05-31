@@ -4,9 +4,7 @@ import graphStructure.Edge;
 import graphStructure.Graph;
 import graphStructure.Vertex;
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.ParallelPortfolio;
 import org.chocosolver.solver.variables.IntVar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +32,6 @@ public class Solver
         {
             v.setSolverVar(model.intVar(v.getLabel(), 0, g.getEdges().size() * 2));
         }
-
-        // g.getEdges().forEach(edge -> {edge.setSolverVar(model.intVar(String.valueOf(edge.getId()), 1, g.getEdges().size()));});
 
         for(Edge e : g.getEdges())
         {
@@ -66,8 +62,6 @@ public class Solver
             model.allDifferent(edge_var_array).post();
         }
 
-//        model.allDifferent(edge_var_array).post();
-
         for(Vertex v : g.getVertices())
         {
             List<IntVar> l = new ArrayList<>();
@@ -87,18 +81,5 @@ public class Solver
         }
 
         model.getSolver().solve();
-
-        // Print solution
-        for (Vertex v : g.getVertices())
-        {
-            System.out.println("Vertex: " + v.getSolverVar());
-        }
-
-        System.out.print("\n");
-
-        for (Edge e : g.getEdges())
-        {
-            System.out.println("Edge: " + e.getSolverVar());
-        }
     }
 }

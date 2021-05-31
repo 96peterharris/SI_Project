@@ -2,7 +2,6 @@ package graphStructure;
 
 import javafx.scene.layout.StackPane;
 import org.chocosolver.solver.variables.IntVar;
-
 import java.util.Objects;
 
 public class Edge

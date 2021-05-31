@@ -164,7 +164,6 @@ public class Graph
 
     private int randInt(int min, int max)
     {
-//        return ((int) (Math.random() * (max - min))) + min;
         if(min >= max)
         {
             return ThreadLocalRandom.current().nextInt(min);

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import static guiUtilities.DrawingFunctions.*;
