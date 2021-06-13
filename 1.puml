@@ -1,0 +1,12 @@
+@startuml
+class graphSolver.Solver {
+- Graph graph
++ <<Create>> Solver()
++ Graph getGraph()
++ void setGraph(Graph)
++ void solve(Graph,boolean)
+}
+class graphSolver.SolverExample {
++ {static} void main(String[])
+}
+@enduml
