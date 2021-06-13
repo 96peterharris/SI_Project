@@ -13,7 +13,7 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("guiSI.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("SI sigma labeling");
         primaryStage.setScene(new Scene(root, 900, 680));
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.show();

@@ -1,0 +1,27 @@
+@startuml
+class guiUtilities.Export {
+- String path
++ <<Create>> Export()
+- byte[] mapToJson(HashMap<String,ArrayList<HashMap<String,String>>>)
++ void exportMap(Button,HashMap<String,ArrayList<HashMap<String,String>>>)
++ String getPath()
+}
+class guiUtilities.Import {
+- String path
++ <<Create>> Import()
++ HashMap<String,ArrayList<HashMap<String,String>>> importJson(Button)
+- HashMap<String,ArrayList<HashMap<String,String>>> jsonToMap(String)
++ String getPath()
+}
+class guiUtilities.DrawingFunctions {
++ {static} double sceneX
++ {static} void buildSingleDirectionalLine(StackPane,StackPane,Pane,StackPane,boolean,boolean,long)
++ {static} void buildBiDirectionalLine(boolean,StackPane,StackPane,Pane)
++ {static} Line getLine(StackPane,StackPane)
++ {static} StackPane getArrow(boolean,Line,StackPane,StackPane)
++ {static} StackPane getWeight(Line)
++ {static} StackPane getDot(String,String)
++ {static} void drawVertex(Pane,StackPane)
++ {static} void drawGraph(Pane,LinkedHashSet<Vertex>,LinkedHashSet<Edge>)
+}
+@enduml

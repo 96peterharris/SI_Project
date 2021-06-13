@@ -1,0 +1,31 @@
+@startuml
+class guiContent.Controller {
+- Pane graphPane
+- Button importBtn
+- Button exportBtn
+- Button randBtn
+- Button addVertexBtn
+- Button solveSBtn
+- Button solveHBtn
+- Button addEdgeBtn
+- Button clearBtn
+- TextField importTF
+- TextField exportTF
+- TextField firstVTF
+- TextField secondVTF
+- Label edgeWarnLabel
+- Graph graph
++ <<Create>> Controller()
++ void initialize(URL,ResourceBundle)
++ void handleClicks(ActionEvent)
++ void clearGraph()
+}
+class guiContent.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+
+javafx.fxml.Initializable <|.. guiContent.Controller
+javafx.application.Application <|-- guiContent.Main
+@enduml
